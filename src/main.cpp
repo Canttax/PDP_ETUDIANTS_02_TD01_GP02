@@ -17,7 +17,7 @@ const char* mqtt_server = "27cc61dbaffc4da08cd0081cabd8cf01.s2.eu.hivemq.cloud";
 int mqtt_port = 8883;
 const char* mqtt_user = "create_ece";
 const char* mqtt_pass = "create123A";
-const char* client_id = "TD02_GP07";
+const char* client_id = "TD01_GP02";
 
 static const char ca_cert[] PROGMEM = R"EOF(
 -----BEGIN CERTIFICATE-----
