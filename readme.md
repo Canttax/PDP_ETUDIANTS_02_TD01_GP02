@@ -10,14 +10,13 @@
 ---
 
 ## <ins>Objectif</ins>
-Vous avez déjà eu l'opportunité d'utiliser MQTT lors du cours d'IOT. L'objectif de ce cours est de vous donner une nouvelle opportunité de bien comprendre le fonctionnement du protocole et son utilisation pour la distribution de messages légers en IOT. Le but de ce TP est de faire remonter les données de température et humidité lues lors du TP précédent avec MQTT.
+L'objectif de ce cours est de prendre en main le protocole et l'utilisation de MQTT pour la distribution de messages légers en IOT. Le but de ce TP est de faire remonter les données de température et humidité lues lors du TP précédent avec MQTT.
 
 ## <ins>Préparation</ins>
-1. `Forkez` le projet du TP sur votre compte github avec le nom **"PDP_ETUDIANTS_02_TD<`NUMERO_DE_TD`>\_GP<`NUMERO_DE_GROUPE`>"**. Par exemple, le groupe 7 du TD 4 devra créer le repo **"PDP_ETUDIANTS_02_TD04_GP07"**
-2. <ins>`ATTENTION : un projet mal nommé sera sanctionné de -5pts sur le suivi du TP. C'est littéralement la partie la plus facile pour vous et ça facilite énormément la correction.`</ins>
-3. Clonez **votre fork** sur votre machine avec `git clone <url>`
-4. Ouvrir le projet avec PlatformIO (sinon les options de compilation et téléversement peuvent ne pas apparaître)
-5. Compléter le code pour compléter chaque étape et `commit` **REGULIEREMENT**
+1. `Forkez` le projet du TP sur votre compte github avec le nom **"PDP_ETUDIANTS_01_TD`<NUMERO_DE_TD>`\_GP`<NUMERO_DE_GROUPE>`"**. Par exemple, le groupe 7 du TD 2 devra créer le repo "PDP_ETUDIANTS_01_TD02_GP07"
+2. Clonez **votre fork** sur votre machine avec `git clone <url>`
+3. Ouvrir le projet avec PlatformIO (sinon les options de compilation et téléversement peuvent ne pas apparaître)
+4. Compléter le code pour compléter chaque étape et `commit` **REGULIEREMENT**
 
 Afin de vérifier votre compréhension du fonctionnement de l'environnement de développement, vous allez travailler avec Git, vous devrez donc `commit` vos modifications régulièrement. Chaque étape devra faire l'objet d'une `branch` distincte sur votre `repository`. Pour indiquer qu'un exercice est terminé, vous devrez tagguer le commit corrrespondant avec un formalisme indiqué dans les instructions. Comme vous devez travailler sur des branches par étape, le `master` devrait être inchangé à la fin.
 
@@ -37,10 +36,10 @@ L'évaluation de votre travail sera réalisée sur les critères suivants :
 ---
 
 ## <ins>Etape 1 - INTERNNEEEEET</ins>
-Une seule étape dans ce TP :)
+Une seule étape dans ce TP 😎
 
 ## Réalisation
-1. Créer une `branch` etape_1 à partir de master avec `git checkout -b etape_1 master`. Cette commande crée la nouvelle branche et vous met dessus directement. Si vous la créez avec `git branch`, pensez à switcher dessus avec `git checkout etape_1`. La récupération des repos et des branches est automatisée. **Si la branche n'existe pas sur votre repo github ou qu'elle est mal nommée, elle ne sera pas corrigée.**
+1. Créer une `branch` etape_1 à partir de master avec `git checkout -b etape_1 master`.
 2. Vérifier que le code fourni compile et fonctionne. Il reprend là où vous avez laissé la fin du TP1.
 3. Dans `main.cpp` dans le dossier `src`, remplacer le bloc
 ```C
@@ -62,12 +61,12 @@ const char* wifi_ssid = <votre_ssid_wifi>;
 const char* wifi_password = <votre_mdp_wifi>;
 const char* mqtt_server = "27cc61dbaffc4da08cd0081cabd8cf01.s2.eu.hivemq.cloud";
 int mqtt_port = 8883;
-const char* mqtt_user = "ocres4ever";
-const char* mqtt_pass = "ocresse123";
+const char* mqtt_user = "create_ece";
+const char* mqtt_pass = "create123A";
 const char* client_id = <votre_groupe>;
 ```
 4. Remplacer les bouts manquants dans le code:
-   1. `<votre_ssid_wifi>` : Le nom du réseau WiFi que vous voulez utiliser. Si le WiFi de l'école ne marche pas, essayez avec du partage de connexion (bonne chance à E3 😁).
+   1. `<votre_ssid_wifi>` : Le nom du réseau WiFi que vous voulez utiliser. Si le WiFi de l'école ne marche pas, essayez avec du partage de connexion.
    2. `<votre_mdp_wifi>` : Le mot de passe du réseau WiFi.
    3. `<votre_groupe>` : Votre nom de groupe avec le formalisme "TDXX_GPXX", eg "TD02_GP01" pour le groupe 1 du TD 2. **IMPORTANT: Respectez exactement ce format pour votre groupe sinon les messages ne seront pas reçus.**
 5. Petite explication :
@@ -113,12 +112,12 @@ emyPxgcYxn/eR44/KJ4EBs+lVDR3veyJm+kXQ99b21/+jh5Xos1AnX5iItreGCc=
 ``` 
   Vous venez d'ajouter le certificat CA du broker, utilisé pour la connexion sécurisée. Il s'agit du certificat qui permet de vérifier l'identité du broker.
 
-7. Au-dessus du `setup`, créer et instancier le client WiFi et le client MQTT.
+1. Au-dessus du `setup`, créer et instancier le client WiFi et le client MQTT.
 ```C
 WiFiClientSecure client;
 PubSubClient mqtt_client(client); 
 ```
-8. Toujours au-dessus du setup, déclarer la fonction qui servira à connecter la carte au réseau WiFi. L'appeler à l'endroit indiqué dans le `setup`.
+1. Toujours au-dessus du setup, déclarer la fonction qui servira à connecter la carte au réseau WiFi. L'appeler à l'endroit indiqué dans le `setup`.
 ```C
 void connect_wifi() {
   Serial.print("Connecting to WiFi");
@@ -132,19 +131,21 @@ void connect_wifi() {
   Serial.println("\nConnected.");
 }
 ```
-9. Configurer le serveur MQTT à l'endroit indiqué avec
+1. Configurer le serveur MQTT à l'endroit indiqué avec
 ```C
 mqtt_client.setServer(mqtt_server, mqtt_port);
 client.setCACert(ca_cert);
 ```
-10. A ce moment, le code est prêt à envoyer les valeurs lues au broker avec MQTT.
-11. Au bon endroit dans le code, connectez le client au broker avec la fonction `mqtt_client.connect()`, connez-lui les bons arguments.
-12. <ins>`Si et seulement si`</ins> la fonction `connect` a bien fonctionné (elle retourne un booléen...), publiez la température et l'humidité relative avec MQTT.
+1.  A ce moment, le code est prêt à envoyer les valeurs lues au broker avec MQTT.
+2.  Au bon endroit dans le code, connectez le client au broker avec la fonction `mqtt_client.connect()`, connez-lui les bons arguments.
+3.  <ins>`Si et seulement si`</ins> la fonction `connect` a bien fonctionné (elle retourne un booléen...), publiez la température et l'humidité relative avec MQTT.
     - Le topic pour la température est `"TDXX_GPXX/temp"`, même formalisme que pour `client_id`.
     - Le topic pour l'humidité est `"TDXX_GPXX/relhum"`, même formalisme que pour `client_id`.
-13. Un programme affiche les messages reçus sur le broker en direct. Vérifiez que votre montage envoie bien les mesures lues.
-14. Appelez-moi pour vérifier que tout fonctionne bien.
-15. `commit` le code si ce n'est pas déjà fait.
-16. Tagguer le dernier commit à corriger avec "e1" avec la commande `git tag e1 HEAD`. Cette commande utilise "HEAD" comme référence au commit le plus récent.
-17. Publier vos `commit` avec vos tags avec `git push origin --tags` (ou `git push --set-upstream origin etape_1 --tags` pour associer la branche sur le repo distant si c'est votre premier push sur cette branche)
+4.  Un programme affiche les messages reçus sur le broker en direct. Vérifiez que votre montage envoie bien les mesures lues.
+5.  Appelez-moi pour vérifier que tout fonctionne bien.
+6.  `commit` le code si ce n'est pas déjà fait.
+7.  Tagguer le dernier commit à corriger avec "e1" avec la commande `git tag e1 HEAD`. Cette commande utilise "HEAD" comme référence au commit le plus récent.
+8.  Publier vos `commits` avec `git push -u origin etape_1`
+9.  Publier vos `tags` avec `git push origin --tags`
+   
 ---
