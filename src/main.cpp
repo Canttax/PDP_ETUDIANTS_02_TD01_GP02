@@ -11,8 +11,8 @@
 #define DHTTYPE DHT11
 #define SLEEP_TIME 5
 
-const char* wifi_ssid = "iPhone de Sacha";
-const char* wifi_password = "b19fneiuwj";
+const char* wifi_ssid = "iPhone de Mederic";
+const char* wifi_password = "azertyui";
 const char* mqtt_server = "27cc61dbaffc4da08cd0081cabd8cf01.s2.eu.hivemq.cloud";
 int mqtt_port = 8883;
 const char* mqtt_user = "create_ece";
